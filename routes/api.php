@@ -24,6 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
+Route::apiResource('/todo', TodoController::class)->except('update','store','destroy');
+Route::apiResource('/todo/category', CategoryController::class)->except('update','store','destroy');
+
+
 
 Route::get('/products/search/{name}', [ProductController::class,'search']);
 
