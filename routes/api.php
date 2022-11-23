@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +26,16 @@ Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 
 Route::get('/products/search/{name}', [ProductController::class,'search']);
-Route::group(['middleware'=>['auth:sanctum']],function(){
-    Route::apiResource('/products', ProductController::class)->except('index','show');
-    Route::post('/logout',[AuthController::class,'logout']);
 
-});
+    Route::group(['middleware'=>['auth:sanctum']],function(){
+
+        Route::apiResource('/products', ProductController::class)->except('index','show');
+        Route::post('/logout',[AuthController::class,'logout']);
+
+        // Todo
+
+        Route::apiResource('/todo', TodoController::class)->except('index','show');
+        Route::apiResource('/todo/category', CategoryController::class)->except('index','show');
+
+    });
 
